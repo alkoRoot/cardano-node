@@ -481,7 +481,7 @@ in {
         wantedBy = [ "sockets.target" ];
         partOf = [ "${n}.service" ];
         socketConfig = {
-          ListenStream = [ "${cfg.hostAddr}:${toString cfg.port}" ]
+          ListenStream = [ "${cfg.hostAddr}:${toString cfg.port}" "[::1]:${toString (cfg.port + i)}" ]
             ++ [(if (i == 0) then cfg.socketPath else "${runtimeDir}-${toString i}/node.socket")];
           ReusePort = "yes";
           SocketMode = "0660";
